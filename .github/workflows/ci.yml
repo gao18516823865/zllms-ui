@@ -27,6 +27,7 @@ jobs:
           yarn build:prod
 
       - name: Run upload command
+        run: yarn upload
         env:
           USERNAME: root
           PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
