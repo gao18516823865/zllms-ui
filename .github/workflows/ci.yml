@@ -2,13 +2,12 @@ name: Ci
 
 on: 
   workflow_dispatch:
-    # branches:
-      # - master
+    branches: [ "master" ]
 
 jobs:
   build:
     name: build
-    if: github.ref == 'refs/heads/master'
+    # if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout code
@@ -17,7 +16,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with: 
-          node-version: 16
+          node-version: [16.x]
       - name: Install dependencies
         run:
           yarn
@@ -26,10 +25,15 @@ jobs:
         run:
           yarn build:prod
 
-      - name: Run upload command
-        run: yarn upload
-        env:
-          USERNAME: root
-          PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
-          SERVER: ${{ secrets.SERVER_IP }}
+      # - name: Run upload command
+      #   run: yarn upload
+      #   env:
+      #     USERNAME: root
+      #     PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
+      #     SERVER: ${{ secrets.SERVER_IP }}
+      - name: Upload files using rsync
+        run: |
+          rsync -avz --progress \
+          ./dist/ \
+          ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ secrets.REMOTE_PATH }}
           REMOTE_PATH: /home/app/testFolder/zllms-ui/dist
