@@ -35,5 +35,5 @@ jobs:
         run: |
           rsync -avz --progress \
           ./dist/ \
-          ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ secrets.REMOTE_PATH }}
+          ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ '/home/app/testFolder/zllms-ui/dist' }}
           REMOTE_PATH: /home/app/testFolder/zllms-ui/dist
