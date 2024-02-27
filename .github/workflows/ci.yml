@@ -27,7 +27,8 @@ jobs:
       - name: Upload files to server
         run: |
           echo "Uploading files to server..."
+          sshpass -p ${{ secrets.SERVER_IP_PWD }}
           rsync  -avP --progress
-          -e "sshpass -p ${{ secrets.SERVER_IP_PWD }}"  
+          # -e "sshpass -p ${{ secrets.SERVER_IP_PWD }}"
           ./dist/* root@${{ secrets.SERVER_IP }}:'/home/app/testFolder/zllms-ui/dist'
           # /本地目录/ 用户名@阿里云服务器IP地址:/远程服务器目录/
