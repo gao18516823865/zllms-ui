@@ -24,25 +24,10 @@ jobs:
       - name: Build for production
         run:
           yarn build:prod
-
-      # - name: Run upload command
-      #   run: yarn upload
-      #   env:
-      #     USERNAME: root
-      #     PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
-      #     SERVER: ${{ secrets.SERVER_IP }}
-      # - name: Upload files using rsync
-      #   run: |
-      #     rsync -avz --progress \
-      #     ./dist/ \
-      #     ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ '/home/app/testFolder/zllms-ui/dist' }}
-      #     # REMOTE_PATH: /home/app/testFolder/zllms-ui/dist
       - name: Upload files to server
         run: |
           echo "Uploading files to server..."
           rsync -avz --progress \
-          -e "sshpass -p ${{ secrets.SERVER_IP_PWD }}" \
-          # ./dist/ \
+          -e "sshpass -p ${{ secrets.SERVER_IP_PWD }}" 
           root@${{ secrets.SERVER_IP }}:${{ '/home/app/testFolder/zllms-ui/dist' }} ./dist
-          # ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ secrets.REMOTE_PATH }}
           # 用户名@阿里云服务器IP地址:/远程服务器目录/ /本地目录/
