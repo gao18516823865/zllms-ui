@@ -26,7 +26,7 @@ jobs:
           yarn build:prod
       - name: Deploy
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} "sudo touch /opt/file.txt"
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} root@${{ secrets.SERVER_IP }} "sudo touch /opt/file.txt"
           # sshpass -p ${{ secrets.SERVER_IP_PWD }} ssh -o StrictHostKeyChecking=no root@{{ secrets.SERVER_IP }} touch /opt/file.txt
           # export LC_ALL=C && rsync -avP --exclude=node_modules --exclude=.git --exclude=.idea --exclude=.husky --exclude=out ./dist/* root@${{ secrets.SERVER_IP }}:/home/app/testFolder/zllms-ui/dist
           # 正确
