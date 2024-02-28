@@ -36,6 +36,6 @@ jobs:
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: "root"
-          TARGET: "/home/app/testFolder/zllms-ui/dist"
+          TARGET: "/home/app/testFolder/zllms-ui/dist1"
           SCRIPT_AFTER: |
             cd /home/app/testFolder/zllms-ui/ && rm -rf dist && mv dist1 dist
