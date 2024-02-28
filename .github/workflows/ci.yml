@@ -28,36 +28,12 @@ jobs:
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
         run: |
-          echo "Uploading files to server... root@${{secrets.SERVER_IP}} key===${{ secrets.SSH_PRIVATE_KEY }}"
-          # ssh -i ${{ secrets.SSH_PRIVATE_KEY }} root@${{secrets.SERVER_IP}} "sudo touch /opt/file.txt"
-          # sshpass -p ${{ secrets.SERVER_IP_PWD }} ssh -o StrictHostKeyChecking=no root@{{ secrets.SERVER_IP }} touch /opt/file.txt
-          # export LC_ALL=C && rsync -avP --exclude=node_modules --exclude=.git --exclude=.idea --exclude=.husky --exclude=out ./dist/* root@${{ secrets.SERVER_IP }}:/home/app/testFolder/zllms-ui/dist
-          # 正确
-      # - name: Deploy aliyun
-      #   uses: easingthemes/ssh-deploy@main
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     ARGS: "-avz --delete"
-      #     SOURCE: "dist/"
-      #     REMOTE_HOST: ${{ secrets.SERVER_IP }}
-      #     REMOTE_USER: "root"
-      #     TARGET: "/home/app/testFolder/zllms-ui/dist"
-
-          
-      # - name: Deploy to Staging server
-      #   uses: easingthemes/ssh-deploy@main
-      #   with:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     ARGS: "-rlgoDzvc -i"
-      #     SOURCE: "dist/"
-      #     REMOTE_HOST: ${{ secrets.SERVER_IP }}
-      #     REMOTE_USER: "root"
-      #     TARGET: "/home/app/testFolder/zllms-ui/dist"
-      #     EXCLUDE: "/dist/, /node_modules/"
-      # - name: Upload files to server
-      #   run: |
-      #     echo "Uploading files to server..."
-      #     sshpass -p ${{ secrets.SERVER_IP_PWD }} rsync  -avP --progress ./dist/* root@${{ secrets.SERVER_IP }}:"/home/app/testFolder/zllms-ui/dist"
-          # sshpass -p ${{ secrets.SERVER_IP_PWD }} ssh  -o StrictHostKeyChecking=no rsync  -avP --progress ./dist/* root@${{ secrets.SERVER_IP }}:'/home/app/testFolder/zllms-ui/dist'
-          # -e "sshpass -p ${{ secrets.SERVER_IP_PWD }}"
-          # /本地目录/ 用户名@阿里云服务器IP地址:/远程服务器目录/
+      - name: Deploy aliyun
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-avz --delete"
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.SERVER_IP }}
+          REMOTE_USER: "root"
+          TARGET: "/home/app/testFolder/zllms-ui/dist"
