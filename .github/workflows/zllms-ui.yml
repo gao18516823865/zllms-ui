@@ -30,8 +30,8 @@ jobs:
         env:
           SERVER_IP_PWD: ${{secrets.SERVER_IP_PWD}}
           SERVER_IP: ${{secrets.SERVER_IP}}
-        script: 
-              - sshpass -p $SERVER_IP_PWD scp -r ./dist/* root@$SERVER_IP:/home/app/zllms/admin-page/dist1
+        run: |
+            - sshpass -p $SERVER_IP_PWD scp -r ./dist/* root@$SERVER_IP:/home/app/zllms/admin-page/dist1
         # uses: easingthemes/ssh-deploy@main
         # env:
         #   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
