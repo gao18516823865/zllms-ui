@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Edit智友聚合大模型平台',
+  title: '22Edit智友聚合大模型平台',
 
   /**
    * 是否系统布局配置
