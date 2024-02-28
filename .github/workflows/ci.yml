@@ -24,15 +24,21 @@ jobs:
       - name: Build for production
         run:
           yarn build:prod
-      - name: Deploy aliyun
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-avz --delete"
-          SOURCE: "dist/"
-          REMOTE_HOST: ${{ secrets.SERVER_IP }}
-          REMOTE_USER: "root"
-          TARGET: "/home/app/testFolder/zllms-ui/dist"
+      - name: Deploy
+        run: |
+          export LC_ALL=C && rsync -avP --exclude=node_modules --exclude=.git --exclude=.idea --exclude=.husky --exclude=out ./dist/* root@${{ secrets.SERVER_IP }}:/home/app/testFolder/zllms-ui/dist
+          # 正确
+      # - name: Deploy aliyun
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     ARGS: "-avz --delete"
+      #     SOURCE: "dist/"
+      #     REMOTE_HOST: ${{ secrets.SERVER_IP }}
+      #     REMOTE_USER: "root"
+      #     TARGET: "/home/app/testFolder/zllms-ui/dist"
+
+          
       # - name: Deploy to Staging server
       #   uses: easingthemes/ssh-deploy@main
       #   with:
